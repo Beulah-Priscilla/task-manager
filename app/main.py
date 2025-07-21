@@ -32,7 +32,7 @@ def create_task(task: schemas.Task, db: Session = Depends(get_db)):
 
 @app.delete("/tasks/{task_id}")
 def delete_task(task_id: int, db: Session = Depends(get_db)):
-  deleted = crud.delete(db, task_id)
+  deleted = crud.delete_task(db, task_id)
   if not deleted:
     raise HTTPException(status_code=404, detail="Task not found")
   return {"message": "Task deleted", "task": deleted}
