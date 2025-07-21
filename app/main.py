@@ -1,34 +1,42 @@
-from fastapi import FastAPI
-# from app.schemas import Task
-from app import schemas
+from fastapi import FastAPI, Depends, HTTPException
+from sqlalchemy.orm import Session
+from app import schemas, models, crud
 from typing import List
-from app.database import Base, engine
-from app import models
+from app.database import Base, engine, SessionLocal
+
 
 app = FastAPI()
 
-tasks: List[schemas.Task] = []
+# tasks: List[schemas.Task] = []
+
+Base.metadata.create_all(bind=engine)
+
+def get_db():
+  db = SessionLocal()
+  try:
+    yield db
+  finally:
+    db.close()
 
 @app.get("/")
 def read_root():
   return {"message": "Hello World! FastAPI app is running"}
 
 @app.get("/tasks", response_model=List[schemas.Task])
-def get_tasks():
-  return tasks
+def get_tasks(db: Session = Depends(get_db)):
+  return crud.get_tasks(db)
 
 @app.post("/tasks", response_model=schemas.Task)
-def create_task(task: schemas.Task):
-  tasks.append(task)
-  return task
+def create_task(task: schemas.Task, db: Session = Depends(get_db)):
+  return crud.create_task(db, task)
 
-@app.delete("/tasks/{task_index}")
-def delete_task(task_index: int):
-  if 0 <= task_index < len(tasks):
-    removed = tasks.pop(task_index)
-    return {"message": "Task deleted", "task": removed}
-  else:
-    return {"error": "Task not found"}
-  
+@app.delete("/tasks/{task_id}")
+def delete_task(task_id: int, db: Session = Depends(get_db)):
+  deleted = crud.delete(db, task_id)
+  if not deleted:
+    raise HTTPException(status_code=404, detail="Task not found")
+  return {"message": "Task deleted", "task": deleted}
 
-Base.metadata.create_all(bind=engine)
+
+
+
