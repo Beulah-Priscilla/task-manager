@@ -18,3 +18,12 @@ def delete_task(db: Session, task_id: int):
     db.commit()
     return task
   return None
+
+def update_task(db: Session, task_id: int, completed: bool):
+  task = db.query(models.Task).filter(models.Task.id == task_id).first()
+  if task:
+    task.completed = completed
+    db.commit()
+    db.refresh(task)
+    return task
+  return None

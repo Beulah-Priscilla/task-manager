@@ -37,6 +37,12 @@ def delete_task(task_id: int, db: Session = Depends(get_db)):
     raise HTTPException(status_code=404, detail="Task not found")
   return {"message": "Task deleted", "task": deleted}
 
+@app.patch("/tasks/{task_id}", response_model=schemas.Task)
+def mark_task_completed(task_id: int, completed: bool, db: Session = Depends(get_db)):
+  updated = crud.update_task(db, task_id, completed)
+  if not updated:
+    raise HTTPException(status_code=404, detail="Task not found")
+  return updated
 
 
 
