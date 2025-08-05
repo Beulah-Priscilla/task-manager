@@ -15,19 +15,19 @@ const App: React.FC = () => {
     .finally(() => setLoading(false));
   }, []);
   return (
-    <Container>
-      <Typography>
+    <Container maxWidth="sm" sx={{ marginTop: 4}}>
+      <Typography variant="h4" gutterBottom>
         📝Task Manager
       </Typography>
       {loading ? (
         <CircularProgress />
       ) : (
-        <Stack>
+        <Stack spacing={2}>
           {tasks.map((task) => (
-            <Card>
-              <CardContent >
-                <Checkbox />
-                <Typography></Typography>
+            <Card key={task.id}>
+              <CardContent sx={{ display: 'flex', alignItems: 'Center'}}>
+                <Checkbox checked={task.completed} />
+                <Typography variant="body1">{task.title}</Typography>
               </CardContent>
             </Card>
           ))}
