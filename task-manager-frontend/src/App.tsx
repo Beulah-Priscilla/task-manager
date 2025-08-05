@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 import { Task } from './types'
-import React, { useState } from 'react';
-import { Container } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Card, CardContent, Checkbox, CircularProgress, Container, Stack, Typography } from '@mui/material';
 
 const App: React.FC = () => {
   const[tasks, setTasks] = useState<Task[]>([]);
@@ -15,9 +15,26 @@ const App: React.FC = () => {
     .finally(() => setLoading(false));
   }, []);
   return (
-<Container>
+    <Container>
+      <Typography>
+        📝Task Manager
+      </Typography>
+      {loading ? (
+        <CircularProgress />
+      ) : (
+        <Stack>
+          {tasks.map((task) => (
+            <Card>
+              <CardContent >
+                <Checkbox />
+                <Typography></Typography>
+              </CardContent>
+            </Card>
+          ))}
+        </Stack>
+      )}
 
-</Container>
+    </Container>
   );
 };
 
