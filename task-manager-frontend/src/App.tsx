@@ -25,7 +25,7 @@ const App: React.FC = () => {
         <Stack spacing={2}>
           {tasks.map((task) => (
             <Card key={task.id}>
-              <CardContent sx={{ display: 'flex', alignItems: 'Center'}}>
+              <CardContent sx={{ display: 'flex', alignItems: 'center'}}>
                 <Checkbox checked={task.completed} />
                 <Typography variant="body1">{task.title}</Typography>
               </CardContent>
