@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Task } from '../types';
-import { Box, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 
 interface AddTaskFormProps {
   onTaskAdded: (task: Task) => void;
@@ -32,6 +32,9 @@ const AddTaskForm: React.FC<AddTaskFormProps> = ({ onTaskAdded }) => {
         value={newTask}
         onChange={(e) => setNewTask(e.target.value)}
       />
+      <Button onClick={handleAddTask}>
+        Add
+      </Button>
     </Box>
   )
 }
