@@ -1,8 +1,8 @@
 import axios from 'axios';
-
 import { Task } from './types'
 import React, { useEffect, useState } from 'react';
 import { Card, CardContent, Checkbox, CircularProgress, Container, Stack, Typography } from '@mui/material';
+import AddTaskForm from './components/AddTaskForm';
 
 const App: React.FC = () => {
   const[tasks, setTasks] = useState<Task[]>([]);
@@ -19,6 +19,7 @@ const App: React.FC = () => {
       <Typography variant="h4" gutterBottom>
         📝Task Manager
       </Typography>
+      <AddTaskForm onTaskAdded={(task) => setTasks((prev) => [...prev, task])} />
       {loading ? (
         <CircularProgress />
       ) : (
