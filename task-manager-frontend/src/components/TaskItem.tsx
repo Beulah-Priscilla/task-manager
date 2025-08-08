@@ -20,9 +20,11 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onTaskDeleted }) => {
   };
   return(
     <Card>
-      <CardContent>
-        <Checkbox checked={task.completed} />
-        <Typography>{task.title}</Typography>
+      <CardContent style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Checkbox checked={task.completed} />
+          <Typography variant="body1">{task.title}</Typography>
+        </div>
         <IconButton onClick={handleDelete} color="error">
           <DeleteIcon />
         </IconButton>
