@@ -26,13 +26,14 @@ const AddTaskForm: React.FC<AddTaskFormProps> = ({ onTaskAdded }) => {
   };
 
   return (
-    <Box>
+    <Box display="flex" gap={2} mb={4}>
       <TextField
+      fullWidth
         label="New Task"
         value={newTask}
         onChange={(e) => setNewTask(e.target.value)}
       />
-      <Button onClick={handleAddTask}>
+      <Button variant="contained" onClick={handleAddTask}>
         Add
       </Button>
     </Box>
