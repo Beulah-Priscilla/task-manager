@@ -3,6 +3,7 @@ import { Task } from './types'
 import React, { useEffect, useState } from 'react';
 import { Card, CardContent, Checkbox, CircularProgress, Container, Stack, Typography } from '@mui/material';
 import AddTaskForm from './components/AddTaskForm';
+import TaskItem from './components/TaskItem';
 
 const App: React.FC = () => {
   const[tasks, setTasks] = useState<Task[]>([]);
@@ -25,12 +26,11 @@ const App: React.FC = () => {
       ) : (
         <Stack spacing={2}>
           {tasks.map((task) => (
-            <Card key={task.id}>
-              <CardContent sx={{ display: 'flex', alignItems: 'center'}}>
-                <Checkbox checked={task.completed} />
-                <Typography variant="body1">{task.title}</Typography>
-              </CardContent>
-            </Card>
+            <TaskItem 
+              key = {task.id}
+              task={task}
+              onTaskDeleted={(id) => setTasks((prev) => prev.filter((t) => t.id !== id))}
+            />
           ))}
         </Stack>
       )}
