@@ -10,12 +10,20 @@ interface TaskItemProps {
 }
 
 const TaskItem: React.FC<TaskItemProps> = ({ task, onTaskDeleted }) => {
+  const handleDelete = () => {
+    axios
+      .delete(`http://localhost:8000/tasks/${task.id}`)
+      .then(() => {
+        onTaskDeleted(task.id)
+      })
+      .catch((error) => console.log('Error deleting task', error));
+  };
   return(
     <Card>
       <CardContent>
-        <Checkbox></Checkbox>
-        <Typography></Typography>
-        <IconButton>
+        <Checkbox checked={task.completed} />
+        <Typography>{task.title}</Typography>
+        <IconButton onClick={handleDelete} color="error">
           <DeleteIcon />
         </IconButton>
       </CardContent>

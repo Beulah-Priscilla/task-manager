@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Task } from './types'
 import React, { useEffect, useState } from 'react';
-import { Card, CardContent, Checkbox, CircularProgress, Container, Stack, Typography } from '@mui/material';
+import { CircularProgress, Container, Stack, Typography } from '@mui/material';
 import AddTaskForm from './components/AddTaskForm';
 import TaskItem from './components/TaskItem';
 
