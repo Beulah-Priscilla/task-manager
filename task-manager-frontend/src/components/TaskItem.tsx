@@ -15,7 +15,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onTaskDeleted, onTaskUpdated 
     axios
       .delete(`http://localhost:8000/tasks/${task.id}`)
       .then(() => {
-        onTaskDeleted(task.id)
+        onTaskDeleted(task.id);
       })
       .catch((error) => console.log('Error deleting task', error));
   };
@@ -24,6 +24,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onTaskDeleted, onTaskUpdated 
     axios
     .patch(`http://localhost:8000/tasks/${task.id}?completed=${!task.completed}`)
     .then((response) => {
+      console.log('Task updated', response.data);
       onTaskUpdated(response.data);
     })
     .catch((error) => console.error('Error updating task:', error));
