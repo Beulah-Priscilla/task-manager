@@ -30,6 +30,11 @@ const App: React.FC = () => {
               key = {task.id}
               task={task}
               onTaskDeleted={(id) => setTasks((prev) => prev.filter((t) => t.id !== id))}
+              onTaskUpdated={(updatedTask) => 
+                setTasks((prev) => 
+                  prev.map((t) => (t.id === updatedTask.id ? updatedTask : t))
+                )
+              }
             />
           ))}
         </Stack>
