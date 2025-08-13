@@ -27,3 +27,4 @@ def update_task(db: Session, task_id: int, completed: bool):
     db.refresh(task)
     return task
   return None
+
