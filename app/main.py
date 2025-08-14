@@ -36,7 +36,7 @@ def get_tasks(db: Session = Depends(get_db)):
   return crud.get_tasks(db)
 
 @app.post("/tasks", response_model=schemas.Task)
-def create_task(task: schemas.Task, db: Session = Depends(get_db)):
+def create_task(task: schemas.TaskBase, db: Session = Depends(get_db)):
   return crud.create_task(db, task)
 
 @app.delete("/tasks/{task_id}")
