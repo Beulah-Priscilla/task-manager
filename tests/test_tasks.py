@@ -16,3 +16,8 @@ def test_create_task_and_cleanup():
 
   del_resp = client.delete(f"/tasks/{new_id}")
   assert del_resp.status_code == 200
+
+def test_get_tasks_returns_list():
+  resp = client.get("/tasks")
+  assert resp.status_code == 200
+  assert isinstance(resp.json(), list)
